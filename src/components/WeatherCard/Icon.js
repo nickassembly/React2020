@@ -5,7 +5,51 @@ const Icon = (props) => {
   const Icon = styled.img`
     width: 40%;
   `;
-  return <Icon className='icon' src='./img/Mostly Cloudy.png' alt='Weather Icon' />;
+
+  var icon = '';
+  switch (props.condition) {
+    case 'Clouds':
+      icon = `./img/Mostly Cloudy-2x.png`;
+      break;
+    case 'Clear':
+      icon = `./img/Weather Icons/Mostly Sunny-2x.png`;
+      break;
+    case 'Haze':
+      icon = `./img/Weather Icons/Haze-2x.png`;
+      break;
+    case 'Hail':
+      icon = `./img/Weather Icons/Hail-2x.png`;
+      break;
+    case 'Fog':
+      icon = `./img/Weather Icons/Fog-2x.png`;
+      break;
+    case 'Tornado':
+      icon = `./img/Weather Icons/Tornado-2x.png`;
+      break;
+    case 'Dust':
+      icon = `./img/Weather Icons/Dust-2x.png`;
+      break;
+    case 'Mist':
+      icon = `./img/Weather Icons/Fog-2x.png`;
+      break;
+    case 'Snow':
+      icon = `./img/Weather Icons/Snow-2x.png`;
+      break;
+    case 'Rain':
+      icon = `./img/Weather Icons/Rain-2x.png`;
+      break;
+    case 'Drizzle':
+      icon = `./img/Weather Icons/Drizzle-2x.png`;
+      break;
+    case 'Thunderstorm':
+      icon = `./img/Weather Icons/Severe Thunderstorm-2x.png`;
+      break;
+    default:
+      icon = `./img/Weather Icons/Fog-2x.png`;
+      break;
+  }
+
+  return <Icon src={icon} alt='Weather Icon' />;
 };
 
 export default Icon;

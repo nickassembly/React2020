@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans|Merriweather&display=swap');
 
 .App {
+  display: inline-flex;
   margin: 0 auto;
   color: white;
 }
