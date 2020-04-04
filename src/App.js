@@ -15,6 +15,11 @@ function App() {
     return resJSON;
   };
 
+  data().then((res) => {
+    console.log('the feels like is ' + res.main.feels_like);
+    console.log('the temp is ' + res.main.temp);
+  });
+
   return (
     <div className='App'>
       <WeatherCard temp={-10} condition='Clear' city='Sydney' country='AU' />
