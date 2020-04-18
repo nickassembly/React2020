@@ -9,6 +9,8 @@ const WeatherEngine = ({location}) => {
   // hooks take a variable and a function
 
   const [query, setQuery] = useState('');
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState({
     temp: null,
     city: null,
@@ -17,18 +19,25 @@ const WeatherEngine = ({location}) => {
   });
 
   const getWeather = async (q) => {
-    const apiRes = await fetch(
-      `
+    setLoading(true);
+    setQuery('');
+    try {
+      const apiRes = await fetch(
+        `
       ${baseUrl}?q=${q}&units=metric&${apiKey}
       `
-    );
-    const resJSON = await apiRes.json();
-    setWeather({
-      temp: resJSON.main.temp,
-      city: resJSON.name,
-      condition: resJSON.weather[0].name,
-      country: resJSON.sys.country,
-    });
+      );
+      const resJSON = await apiRes.json();
+      setWeather({
+        temp: resJSON.main.temp,
+        city: resJSON.name,
+        condition: resJSON.weather[0].name,
+        country: resJSON.sys.country,
+      });
+    } catch (error) {
+      setError(true);
+    }
+    setLoading(false);
   };
 
   const handleSearch = (e) => {
@@ -43,17 +52,29 @@ const WeatherEngine = ({location}) => {
 
   return (
     <div>
-      <WeatherCard
-        temp={weather.temp}
-        condition={weather.condition}
-        city={weather.city}
-        country={weather.country}
-      />
-
-      <form>
-        <input value={query} onChange={(e) => setQuery(e.target.value)} />
-        <button onClick={(e) => handleSearch(e)}>Search</button>
-      </form>
+      {!loading && !error ? (
+        <div>
+          {' '}
+          <WeatherCard
+            temp={weather.temp}
+            condition={weather.condition}
+            city={weather.city}
+            country={weather.country}
+          />
+          <form>
+            <input value={query} onChange={(e) => setQuery(e.target.value)} />
+            <button onClick={(e) => handleSearch(e)}>Search</button>
+          </form>
+        </div>
+      ) : loading ? (
+        <div style={{color: 'black'}}>Loading...</div>
+      ) : !loading && error ? (
+        <div style={{color: 'black'}}>
+          Error, unable to retrieve data.
+          <br />
+          <button onClick={() => setError(false)}>Reset</button>
+        </div>
+      ) : null}
     </div>
   );
 };
