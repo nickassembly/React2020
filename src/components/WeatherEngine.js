@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import WeatherCard from './WeatherCard/component';
 
-const WeatherEngine = ({location}) => {
+const WeatherEngine = ({ location }) => {
   const baseUrl = 'http://api.openweathermap.org/data/2.5/weather';
   const apiKey = 'APPID=' + process.env.REACT_APP_SECRET_KEY;
 
@@ -67,9 +67,9 @@ const WeatherEngine = ({location}) => {
           </form>
         </div>
       ) : loading ? (
-        <div style={{color: 'black'}}>Loading...</div>
+        <div style={{ color: 'black' }}>Loading...</div>
       ) : !loading && error ? (
-        <div style={{color: 'black'}}>
+        <div style={{ color: 'black' }}>
           Error, unable to retrieve data.
           <br />
           <button onClick={() => setError(false)}>Reset</button>
