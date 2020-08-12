@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import WeatherCard from './WeatherCard/component';
+import PulseLoader from 'react-spinners/PulseLoader';
 
 const WeatherEngine = ({ location }) => {
   const baseUrl = 'http://api.openweathermap.org/data/2.5/weather';
@@ -65,7 +66,9 @@ const WeatherEngine = ({ location }) => {
 
         </div>
       ) : loading ? (
-        <div style={{ color: 'black' }}>Loading...</div>
+        <div style={{ display: 'flex', width: '200px', height: '240px', justifyContent: 'center', alignItems: 'center' }}>
+          <PulseLoader size={15} color="purple" />
+        </div>
       ) : !loading && error ? (
         <div style={{ color: 'black' }}>
           Error, unable to retrieve data.
