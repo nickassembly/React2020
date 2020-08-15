@@ -41,6 +41,7 @@ const WeatherEngine = ({ location }) => {
     setLoading(false);
   };
 
+  // eslint-disable-next-line
   const handleSearch = (e) => {
     e.preventDefault();
     getWeather(query);
@@ -49,6 +50,7 @@ const WeatherEngine = ({ location }) => {
   // will run once when component is mounted, will run again if dependency array changes
   useEffect(() => {
     getWeather(location);
+    // eslint-disable-next-line
   }, [location]);
 
   return (
