@@ -41,45 +41,38 @@ const WeatherEngine = ({ location }) => {
     setLoading(false);
   };
 
-  // eslint-disable-next-line
-  const handleSearch = (e) => {
-    e.preventDefault();
-    getWeather(query);
-  };
-
   // will run once when component is mounted, will run again if dependency array changes
   useEffect(() => {
     getWeather(location);
     // eslint-disable-next-line
   }, [location]);
 
-  return (
-    <div>
-      {!loading && !error ? (
-        <div>
-          {' '}
-          <WeatherCard
-            temp={weather.temp}
-            condition={weather.condition}
-            city={weather.city}
-            country={weather.country}
-            getWeather={getWeather}
-          />
+  if (error) {
+    return (
+      <div style={{ color: 'black' }}>
+        Error, unable to retrieve data.
+        <br />
+        <button onClick={() => setError(false)}>Reset</button>
+      </div>
+    )
+  }
 
-        </div>
-      ) : loading ? (
-        <div style={{ display: 'flex', width: '200px', height: '240px', justifyContent: 'center', alignItems: 'center' }}>
-          <PulseLoader size={15} color="purple" />
-        </div>
-      ) : !loading && error ? (
-        <div style={{ color: 'black' }}>
-          Error, unable to retrieve data.
-          <br />
-          <button onClick={() => setError(false)}>Reset</button>
-        </div>
-      ) : null
-      }
-    </div >
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', width: '200px', height: '240px', justifyContent: 'center', alignItems: 'center' }}>
+        <PulseLoader size={15} color="purple" />
+      </div>
+    )
+  }
+
+  return (
+    <WeatherCard
+      temp={weather.temp}
+      condition={weather.condition}
+      city={weather.city}
+      country={weather.country}
+      getWeather={getWeather}
+    />
   );
 };
 
